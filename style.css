@@ -1,0 +1,19 @@
+body {
+background-color:teal;
+background-repeat: space;
+font-family: tahoma, sans-serif;
+}
+* {
+	text-align:center;
+}
+#filepicker {
+	border:solid;
+}
+label {
+	display:block;
+}
+body>header>h1 {
+	font-size:medium;
+	text-decoration:underline wavy;
+	color: silver;
+}
