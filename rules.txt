@@ -19,10 +19,17 @@ pdf specification; file 'PDF32000_2008.pdf'
 ##
 
 WSPACE
-	#END-OF-LINE MARKER
-	0xA LINE FEED
-	0xD CARRIAGE RETURN
+	0X0 NULL
+	0X9 HORIZONTAL TAB
+	0XA LINE FEED ..EOLM..
+	0XC FORM FEED 
+	0XD CARRIAGE RETURN ..EOLM..
+	0X20 SPACE
 	.white space.
+	
+EOLM
+	{CARRIAGE RETURN}{LINE FEED}
+	.end of line marker.
 Comments
 	% EOLM
 	AS
