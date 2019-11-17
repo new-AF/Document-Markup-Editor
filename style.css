@@ -22,6 +22,7 @@ font-family: tahoma, sans-serif;
 }
 * {
 	text-align:center;
+	margin: 1rem auto;
 }
 #filepicker {
 	border:solid;
