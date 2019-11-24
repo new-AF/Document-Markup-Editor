@@ -32,12 +32,15 @@ t=d.querySelector('body>header')
 t.addEventListener('mousemove',c)
 
 f=d.querySelector('.file-selection')
-f.addEventListener('dragover', e => {
-	f.classList.add('dragenter')
+f.addEventListener('dragenter', e => {
+
+	if (!f.classList.contains('dragenter'))
+			f.classList.add('dragenter')
 	//console.log('000000000000')
 })
 
 f.addEventListener('dragleave', e => {
+if (e.relatedTarget==f)
 	f.classList.remove('dragenter')
 })
 
