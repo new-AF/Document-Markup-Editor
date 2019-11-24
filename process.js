@@ -15,14 +15,37 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+const d=document;
+const v0= '0.0.1';
+const v = v0+' ';
+
 c = function(e) {
 	x = e.target
 	w = x.offsetWidth
 	h = x.offsetHeight
 	col = e.screenX%255
 	coll = e.screenY%255
-	
+
 	x.style.color = `rgb(${coll},${col},${col})`
 }
-t=document.querySelector('body>header')
+t=d.querySelector('body>header')
 t.addEventListener('mousemove',c)
+
+f=d.querySelector('.file-selection')
+f.addEventListener('dragover', e => {
+	f.classList.add('dragenter')
+	//console.log('000000000000')
+})
+
+f.addEventListener('dragleave', e => {
+	f.classList.remove('dragenter')
+})
+
+s = d.querySelector('.file-selection span')
+
+'txt pdf html'.split(' ').forEach( e => {x=d.createElement('span');
+x.textContent = e.toUpperCase(); x.style.display = 'block';s.appendChild(x);
+ t.append} )
+
+d.querySelector('footer').children[0].textContent+= v;
+d.title+= v;

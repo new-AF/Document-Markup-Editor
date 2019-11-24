@@ -24,7 +24,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css">
-	<title></title>
+	<title>Document Markup Editor</title>
 </head>
 
 <body>
@@ -36,21 +36,23 @@
 </header>
 
 <main>
-	<section class="container-fluid pdf-selection">
-		<form>
-		<label for="filepicker">
-			Drag a <abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe">pdf</abbr> file</label>
+	<section class="container-fluid file-selection">
+		<form method="get" action="process.js">
+		<label>
+			Drag a File
+			<span>Supported Formats</span>
+				<abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe"></abbr></label>
 		<input type="file" id="filepicker">
 		</form>
 	</section>
 
-	<section class="container-fluid pdf-info">
+	<section class="container-fluid file-info">
 
 	</section>
 </main>
 
 <footer>
-<h6>version 0.0.1</h6>
+<h6>version</h6>
 </footer>
 
 <script src="process.js"></script>
