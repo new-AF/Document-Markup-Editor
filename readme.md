@@ -15,3 +15,6 @@ HTML (and CSS) will then be used; for its structuring and presentational capabil
 The Markup will then be converted back to PDF for Final Output.
 
 ## Implementation
+- <code>rules.txt</code> will hold a basic set of rules to parse the format as per the released Specification [https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf](https://www.adobe.com/content/dam/acom/en/devnet/pdf/pdfs/PDF32000_2008.pdf)
+
+- <code>porcess.js</code> has to parse the format of <code>rules.txt</code> which has a yet not defined syntax.

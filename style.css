@@ -21,7 +21,9 @@ body {
 background-repeat: space;
 font-family: tahoma, sans-serif;*/
 }
-
+.xs{
+	/*font-size: smaller;*/
+}
 * {
 	text-align:center;
 	margin: 1rem auto;
