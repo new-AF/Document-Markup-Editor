@@ -15,18 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
+.hidden {visibility: hidden;}
 body {
 /*background-color:teal;
 background-repeat: space;
 font-family: tahoma, sans-serif;*/
 }
+
 * {
 	text-align:center;
 	margin: 1rem auto;
 }
 .file-selection {
-	background-color: lightgray; opacity: 0.7;width: 50%;
+	background-color: lightgray;width: 50%;
 	border-radius: 2%;
 	padding: 10%;
 }
@@ -36,14 +37,9 @@ font-family: tahoma, sans-serif;*/
 .dragleave {
 	border-style: none;
 }
-#filepicker {
-	/*border:solid;*/
+form {
+	border:dotted;
 }
-label {
-	/*display:block;*/
-}
-body>header>h1 {
-	/*font-size:medium;
-	text-decoration:underline wavy;
-	color: silver;*/
+input {
+	width: 0%;
 }

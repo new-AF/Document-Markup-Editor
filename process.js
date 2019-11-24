@@ -17,8 +17,10 @@
 */
 const d=document;
 const v0= '0.0.1';
-const v = v0+' ';
+const v = ' '+v0;
 
+
+button = d.querySelector(".choose")
 c = function(e) {
 	x = e.target
 	w = x.offsetWidth
@@ -28,27 +30,50 @@ c = function(e) {
 
 	x.style.color = `rgb(${coll},${col},${col})`
 }
-t=d.querySelector('body>header')
-t.addEventListener('mousemove',c)
 
-f=d.querySelector('.file-selection')
-f.addEventListener('dragenter', e => {
+header=d.querySelector('body header h1')
+header.addEventListener('mousemove',c)
 
-	if (!f.classList.contains('dragenter'))
-			f.classList.add('dragenter')
-	//console.log('000000000000')
+/*section.file-selecion.form.input*/
+f=d.querySelector('#filepicker')
+section=f.parentElement;
+main=section.parentElement;
+
+section.addEventListener('dragenter', e => {
+	section.classList.add('dragenter')
+	//e.preventDefault();
+	//console.log(e);
 })
 
-f.addEventListener('dragleave', e => {
-if (e.relatedTarget==f)
-	f.classList.remove('dragenter')
+section.addEventListener('dragleave', e => {
+if ( e.relatedTarget==main || e.relatedTarget==null )
+	section.classList.remove('dragenter');
+	console.log(e.relatedTarget);
+	//e.preventDefault();
 })
 
-s = d.querySelector('.file-selection span')
+f.addEventListener('change',e => {
 
-'txt pdf html'.split(' ').forEach( e => {x=d.createElement('span');
-x.textContent = e.toUpperCase(); x.style.display = 'block';s.appendChild(x);
- t.append} )
+})
 
+section.ondrop = e=> {
+	e.preventDefault();console.log(e);
+}
+
+/*First span inside section.file-selection*/
+s = d.querySelector('.file-selection > span')
+s.style.display="block";
+
+sp='.txt .pdf .html'
+f.setAttribute('accept' , sp.replace(/ /g,',') )
+//console.log(picker.attributes.accept)
+sp.split(' ').forEach(
+x => {
+e=d.createElement('span');
+e.textContent = x.toUpperCase();
+e.style.display = 'block';
+s.appendChild(e);
+} )
+s.children[1].innerHTML= `<abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe">PDF</abbr>`
 d.querySelector('footer').children[0].textContent+= v;
 d.title+= v;

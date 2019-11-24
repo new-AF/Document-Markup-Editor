@@ -31,19 +31,22 @@
 
 <header>
 
-	<h1>Document Markup Editor</h1>
-
+	<h1 class="lead">Document Markup Editor</h1>
+	<a href="https://github.com/new-AF/Document-Markup-Editor" class="badge badge-secondary">On GitHub</a>
 </header>
 
 <main>
-	<section class="container-fluid file-selection">
-		<form method="get" action="process.js">
-		<label>
+
+<section class="container-fluid file-selection">
+		<!-- <form method="get" multilpe> -->
+			<!-- <label> -->
 			Drag a File
-			<span>Supported Formats</span>
-				<abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe"></abbr></label>
-		<input type="file" id="filepicker">
-		</form>
+			<span class=>Supported Formats</span>
+				<hr>
+			<!-- 	</label> -->
+		<input type="file" id="filepicker" class="hidden text-center" multiple>
+		<label class='choose btn btn-primary' for="filepicker">Choose A File</label>
+			<!--  </form> -->
 	</section>
 
 	<section class="container-fluid file-info">
