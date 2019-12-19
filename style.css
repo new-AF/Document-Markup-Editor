@@ -28,7 +28,7 @@ font-family: tahoma, sans-serif;*/
 	text-align:center;
 	margin: 1rem auto;
 }
-.file-selection {
+.file-selection , .Box {
 	background-color: lightgray;width: 50%;
 	border-radius: 2%;
 	padding: 10%;

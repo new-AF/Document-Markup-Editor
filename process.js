@@ -23,7 +23,7 @@ const v = ' '+v0;
 button = d.querySelector(".choose")
 c = function(e) {
 	x = e.target
-	w = x.offsetWidth
+	let w = x.offsetWidth
 	h = x.offsetHeight
 	col = e.screenX%255
 	coll = e.screenY%255
@@ -52,10 +52,6 @@ if ( e.relatedTarget==main || e.relatedTarget==null )
 	//e.preventDefault();
 })
 
-f.addEventListener('change',e => {
-
-})
-
 section.ondrop = e=> {
 	e.preventDefault();console.log(e);
 }
@@ -75,5 +71,83 @@ e.style.display = 'block';
 s.appendChild(e);
 } )
 s.children[1].innerHTML= `<abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe">PDF</abbr>`
-d.querySelector('footer').children[0].textContent+= v;
+//d.querySelector('footer').children[0].textContent+= v;
 d.title+= v;
+
+
+const w=window
+const T = true
+const F = !T
+
+create = (i) => d.createElement(i)
+
+each = (x,y) => x.forEach( i => y(i) )
+
+function put(...args) {
+
+    console.log('>',...args,'<')
+}
+
+function typeis(i,type) {
+
+    return typeof(i) === type
+}
+
+function check(i,type, hardno) {
+
+    if (!typeis(i,type))
+        console.trace(`[check] i is not (${type}) (${i})`)
+
+    if (hardno)
+        throw `[check] hardno is (${hardno})`
+
+}
+
+function range(a,b) {
+    try {
+        [a, b] = a
+    }
+
+    catch (e) {
+
+    }
+    return [a,b]
+}
+
+
+function get(i) {
+
+    check(i,"string")
+
+    f = d.querySelectorAll
+    //put('f.call',f)
+    f = f.call(d,i)
+
+    return f
+}
+
+function children(i) {
+
+    if (typeis(i,'string'))
+        i = get(i)
+    //put('children',i)
+    c = Array.from(i.children)
+    return c
+}
+const entries = i => Object.entries(i)
+f.addEventListener('change',e => {
+	t = e.currentTarget
+	$(get('.file-selection')[0]).fadeOut('fast')
+
+	ch = $('.file-info > .row > div:nth-child(2)');
+	//ch.each( (i,el) => $(el) )
+	put(ch)
+	c = 0
+
+	for (i of t.files) {
+		$(ch[c++]).text(i.name)
+		$(ch[c++]).text(i.type)
+		$(ch[c++]).text(i.size)
+		$(ch[c++]).text(new Date(i.lastModified))
+	}
+})
