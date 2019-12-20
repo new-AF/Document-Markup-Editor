@@ -60,7 +60,7 @@ section.ondrop = e=> {
 s = d.querySelector('.file-selection > span')
 s.style.display="block";
 
-sp='.txt .pdf .html'
+sp='.txt .pdf .html .htm'
 f.setAttribute('accept' , sp.replace(/ /g,',') )
 //console.log(picker.attributes.accept)
 sp.split(' ').forEach(
@@ -134,20 +134,37 @@ function children(i) {
     c = Array.from(i.children)
     return c
 }
-const entries = i => Object.entries(i)
-f.addEventListener('change',e => {
-	t = e.currentTarget
-	$(get('.file-selection')[0]).fadeOut('fast')
 
+const entries = i => Object.entries(i)
+
+f.addEventListener('change',function(e) {
+	t = e.currentTarget
+
+	$(get('.file-selection')[0]).fadeOut('fast')
+	$('.file-info').fadeToggle('fast')
 	ch = $('.file-info > .row > div:nth-child(2)');
 	//ch.each( (i,el) => $(el) )
-	put(ch)
+	//put(ch)
 	c = 0
-
+	n = []
 	for (i of t.files) {
 		$(ch[c++]).text(i.name)
+		n.push(i.name)
 		$(ch[c++]).text(i.type)
 		$(ch[c++]).text(i.size)
 		$(ch[c++]).text(new Date(i.lastModified))
 	}
+	p = n.filter(i => i.endsWith('.pdf'))
+	x = n.filter(i => i.endsWith('.txt'))
+	h = n.filter(i => i.endsWith('.htm'))
+
+	c=0 ;
+	for (x of [p,x,h]) {
+		B = $(`.B${++c}`)
+		C = B.children()
+		B.show()
+		x.forEach(i => { C.last().text(i); B.append( C.last().clone() ) } )
+	}
+
 })
+$( function() { $('.file-info, .B1,.B2,.B3 ').hide() } );
