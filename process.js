@@ -142,7 +142,7 @@ f.addEventListener('change',function(e) {
 
 	$(get('.file-selection')[0]).fadeOut('fast')
 	$('.file-info').fadeToggle('fast')
-	ch = $('.file-info > .row > div:nth-child(2)');
+	ch = $('.file-info > *').not('.R').children('.row > div:nth-child(2)');
 	//ch.each( (i,el) => $(el) )
 	//put(ch)
 	c = 0
@@ -157,14 +157,16 @@ f.addEventListener('change',function(e) {
 	p = n.filter(i => i.endsWith('.pdf'))
 	x = n.filter(i => i.endsWith('.txt'))
 	h = n.filter(i => i.endsWith('.htm'))
+	put(p,x,h)
 
 	c=0 ;
-	for (x of [p,x,h]) {
-		B = $(`.B${++c}`)
-		C = B.children()
-		B.show()
-		x.forEach(i => { C.last().text(i); B.append( C.last().clone() ) } )
-	}
+	[p,x,h].forEach(i => {
+		put('***',i)
+		bu = $(`.B${++c}`)
+		cc = bu.children().last()
+		bu.show()
+		i.forEach( j => { cc.text(j); bu.append(cc.clone()) } )
+	})
 
 })
-$( function() { $('.file-info, .B1,.B2,.B3 ').hide() } );
+$( function DocumentReady() { /*$('.file-info ').hide()*/ } );
