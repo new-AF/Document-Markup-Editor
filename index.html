@@ -55,18 +55,15 @@
 
 	<section class="container-fluid file-info card">
 
-		<div class="R row justify-content-around btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-		  <div class="B1 col-3 btn-group mx-2" role="group" aria-label="First group">
-		    <button type="button" class="btn btn-secondary">1</button>
-		   </div>
-			 <div class="B2 col-3 btn-group mx-2" role="group" aria-label="First group">
- 		    <button type="button" class="btn btn-secondary">1</button>
- 		   </div>
-			 <div class="B3 col-3 btn-group mx-2" role="group" aria-label="First group">
- 		    <button type="button" class="btn btn-secondary">1</button>
- 		   </div>
+		<div class="row justify-content-around btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 
-			 <button type="button" class="mx-2 justify-item-end btn btn-warning">DEL</button>
+			<div class="col-3 btn-group" role="group" aria-label="First group">
+		    <button type="button" class="btn btn-secondary">empty</button>
+		   </div>
+
+			 <div class="delete col-3 btn-group" role="group" aria-label="First group">
+ 		    <button type="button" class="btn btn-warning">delete</button>
+ 		   </div>
 
 		  </div>
 
@@ -86,6 +83,8 @@
 				<div class="col"><span>Last modified</span></div>
 				<div class="col"></div>
 			</div>
+
+			<button class ="btn btn-primary">Open</button>
 	</section>
 
 </main>

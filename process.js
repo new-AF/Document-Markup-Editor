@@ -16,8 +16,17 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 const d=document;
-const v0= '0.0.1';
-const v = ' '+v0;
+const __version__= '0.0.1';
+
+function set_version_on_title(x){
+
+	t = d.title.split(' ');
+	t[t.length-1] = ' '+x;
+
+	d.title = t.join('')
+}
+
+set_version_on_title(__version__)
 
 
 button = d.querySelector(".choose")
@@ -34,9 +43,8 @@ c = function(e) {
 header=d.querySelector('body header h1')
 header.addEventListener('mousemove',c)
 
-/*section.file-selecion.form.input*/
-f=d.querySelector('#filepicker')
-section=f.parentElement;
+file_input=d.querySelector('#filepicker')
+section=file_input.parentElement;
 main=section.parentElement;
 
 section.addEventListener('dragenter', e => {
@@ -48,7 +56,7 @@ section.addEventListener('dragenter', e => {
 section.addEventListener('dragleave', e => {
 if ( e.relatedTarget==main || e.relatedTarget==null )
 	section.classList.remove('dragenter');
-	console.log(e.relatedTarget);
+	//console.log(e.relatedTarget);
 	//e.preventDefault();
 })
 
@@ -61,7 +69,7 @@ s = d.querySelector('.file-selection > span')
 s.style.display="block";
 
 sp='.txt .pdf .html .htm'
-f.setAttribute('accept' , sp.replace(/ /g,',') )
+file_input.setAttribute('accept' , sp.replace(/ /g,',') )
 //console.log(picker.attributes.accept)
 sp.split(' ').forEach(
 x => {
@@ -72,12 +80,6 @@ s.appendChild(e);
 } )
 s.children[1].innerHTML= `<abbr title="(PDF) Portable Document Format, an ISO specification for Documents Interchange developed at the beginning by Adobe">PDF</abbr>`
 //d.querySelector('footer').children[0].textContent+= v;
-d.title+= v;
-
-
-const w=window
-const T = true
-const F = !T
 
 create = (i) => d.createElement(i)
 
@@ -88,6 +90,24 @@ function put(...args) {
     console.log('>',...args,'<')
 }
 
+function get(x, single = false) {
+
+	check(x,"string")
+
+	t = d.querySelectorAll(x)
+
+	if (t.length == 0) {
+			put('[get] no matching selector found',`(${x})`)
+			return null
+		}
+
+	return single? t[0] : t
+
+		}
+
+function gets(x){
+	return get(x,single = true)
+}
 function typeis(i,type) {
 
     return typeof(i) === type
@@ -114,18 +134,6 @@ function range(a,b) {
     return [a,b]
 }
 
-
-function get(i) {
-
-    check(i,"string")
-
-    f = d.querySelectorAll
-    //put('f.call',f)
-    f = f.call(d,i)
-
-    return f
-}
-
 function children(i) {
 
     if (typeis(i,'string'))
@@ -135,38 +143,123 @@ function children(i) {
     return c
 }
 
-const entries = i => Object.entries(i)
-
-f.addEventListener('change',function(e) {
-	t = e.currentTarget
-
-	$(get('.file-selection')[0]).fadeOut('fast')
-	$('.file-info').fadeToggle('fast')
-	ch = $('.file-info > *').not('.R').children('.row > div:nth-child(2)');
-	//ch.each( (i,el) => $(el) )
-	//put(ch)
-	c = 0
-	n = []
-	for (i of t.files) {
-		$(ch[c++]).text(i.name)
-		n.push(i.name)
-		$(ch[c++]).text(i.type)
-		$(ch[c++]).text(i.size)
-		$(ch[c++]).text(new Date(i.lastModified))
+function add_row_classes(x, from = 1){
+	//put(x)
+	p = x[0].parentElement
+  p.Rows = []
+	c = from
+	for (i of x){
+		i.classList.add(`row${c}`)
+		p.Rows.push(i)
+		c++
 	}
-	p = n.filter(i => i.endsWith('.pdf'))
-	x = n.filter(i => i.endsWith('.txt'))
-	h = n.filter(i => i.endsWith('.htm'))
-	put(p,x,h)
+}
+add_row_classes(get('.file-info>*'))
+class Read {
 
-	c=0 ;
-	[p,x,h].forEach(i => {
-		put('***',i)
-		bu = $(`.B${++c}`)
-		cc = bu.children().last()
-		bu.show()
-		i.forEach( j => { cc.text(j); bu.append(cc.clone()) } )
-	})
+}
 
-})
+//function
+function text_width(x){
+	canvas = d.createElement('canvas')
+	c = canvas.getContext('2d')
+	c.font = '16px tahoma'
+	v = c.measureText(x)
+	canvas.remove()
+	return v.width
+}
+
+function fill_(e){
+	w = e.currentTarget
+
+	file = w.File
+
+	r = gets('.file-info').Rows
+	c = 1
+	//put('**',file,typeof(file))
+	for (i of 'name type Size LastModified'.split(' ')) {
+		//put('fill_',i)
+		r[c++].lastElementChild.innerText = file[i]
+	}
+}
+
+function add_tabs(e) {
+	p = gets('.file-info').Rows[0]
+
+	div_last=p.lastElementChild
+
+	div = p.firstElementChild
+
+	files = e.currentTarget.files
+
+	c = 0
+	for (i of files) {
+
+		c++
+
+		j = div.cloneNode(true) ; if (c==1) j = div;
+		jj = j.firstElementChild
+		Name = i.name
+		PrefixPos = Name.lastIndexOf('.')
+		Prefix = Name.slice(PrefixPos)
+		jj.FullName = Name
+		j.File = i			/*Each tab gets a copy of its info*/
+
+
+		j.File.SizeInUnits = [j.File.size + ' Byte(s)', parseFloat(j.File.size / 1024).toFixed(2) + ' KB'] /*using 1KB == 1024 convention*/
+
+		j.File.Size =  j.File.SizeInUnits[ Number(j.File.size > 1024 )  ]
+		j.File.LastModified = j.File.lastModifiedDate.toLocaleString()
+		tw = text_width(Name)
+		if (tw>120) {
+			y = tw / Name.length
+			len = parseInt(120/y)
+			Name = Name.slice(0,len - 3 - Prefix.length ) + '...'+Prefix
+		}
+		jj.innerText = Name
+		if (c==1)		continue;
+		p.insertBefore(j,div_last)
+
+		j.onclick = fill_
+	}
+
+	div.click()
+}
+
+
+//add_classes(get('.tab1 > *'))
+
+file_input.onchange = function(e) { add_tabs(e); /*fill_(e);*/ }
+// file_input.addEventListener('change',function(e) {
+// 	t = e.currentTarget
+//
+// 	$(get('.file-selection')[0]).fadeOut('fast')
+// 	$('.file-info').fadeToggle('fast')
+// 	ch = $('.file-info > *').not('.R').children('.row > div:nth-child(2)');
+// 	//ch.each( (i,el) => $(el) )
+// 	//put(ch)
+// 	c = 0
+// 	n = []
+// 	for (i of t.files) {
+// 		$(ch[c++]).text(i.name)
+// 		n.push(i.name)
+// 		$(ch[c++]).text(i.type)
+// 		$(ch[c++]).text(i.size)
+// 		$(ch[c++]).text(new Date(i.lastModified))
+// 	}
+// 	p = n.filter(i => i.endsWith('.pdf'))
+// 	x = n.filter(i => i.endsWith('.txt'))
+// 	h = n.filter(i => i.endsWith('.htm'))
+// 	put(p,x,h)
+//
+// 	c=0 ;
+// 	[p,x,h].forEach(i => {
+// 		put('***',i)
+// 		bu = $(`.B${++c}`)
+// 		cc = bu.children().last()
+// 		bu.show()
+// 		i.forEach( j => { cc.text(j); bu.append(cc.clone()) } )
+// 	})
+//
+// })
 $( function DocumentReady() { /*$('.file-info ').hide()*/ } );
