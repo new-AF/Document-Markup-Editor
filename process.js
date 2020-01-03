@@ -145,7 +145,7 @@ function children(i) {
 
 function add_row_classes(x, from = 1){
 	//put(x)
-	p = x[0].parentElement
+	p = fileInfo = x[0].parentElement
   p.Rows = []
 	c = from
 	for (i of x){
@@ -174,7 +174,11 @@ function fill_(e){
 
 	file = w.File
 
-	r = gets('.file-info').Rows
+	row1 = w.parentElement
+
+	row1.Tabs.active = w
+
+	r = row1.parentElement.Rows
 	c = 1
 	//put('**',file,typeof(file))
 	for (i of 'name type Size LastModified'.split(' ')) {
@@ -183,8 +187,51 @@ function fill_(e){
 	}
 }
 
+function delete_(e) {
+		w = e.currentTarget
+
+		row1 = w.parentElement
+		//put(p.Active)
+		empty = {
+			name: '',
+			type: '',
+			Size: '',
+			LastModified: '',
+		}
+
+
+	active = row1.Tabs.active
+	ind = row1.Tabs.all.indexOf(active)
+
+
+
+	row1.Tabs.all.splice(ind,1)
+	//put(row1.Tabs.all,active)
+	if (row1.Tabs.all.length > 0) {
+		active.remove()
+		if (ind) {
+
+			active = row1.Tabs.active = row1.Tabs.all[ind - 1]
+		}
+		else {
+			active = row1.Tabs.active = row1.Tabs.all[0]
+		}
+	}
+
+	else {
+		row1.Tabs.all[0] = active
+		row1.Tabs.active.File = empty
+		row1.Tabs.active.firstElementChild.innerText = 'empty'
+	}
+	active.click()
+
+}
 function add_tabs(e) {
-	p = gets('.file-info').Rows[0]
+	p = row1 = gets('.file-info').Rows[0]
+
+	p.Tabs = new Object()
+	p.Tabs.all = []
+	p.Tabs.active= null
 
 	div_last=p.lastElementChild
 
@@ -221,8 +268,12 @@ function add_tabs(e) {
 		p.insertBefore(j,div_last)
 
 		j.onclick = fill_
-	}
+		div_last.onclick = delete_
 
+		p.Tabs.all.push(j)
+		//put(p.Tabs)
+	}
+	//put(p.Tabs)
 	div.click()
 }
 
